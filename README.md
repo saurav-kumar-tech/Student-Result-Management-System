@@ -1,102 +1,97 @@
-# Student Result Management System (Java + MySQL)
+🎓 Student Result Management System
 
-Data ab **MySQL database** me store hota hai (pehle sirf memory me tha,
-program band karte hi delete ho jaata tha — ab permanent rehta hai).
+A simple and user-friendly desktop application built with **Java Swing, JDBC, and MySQL** to manage student details, subject-wise marks, and academic results.
 
-## Files
-- `schema.sql` — MySQL database + table structure (run this ONCE first).
-- `src/Student.java` — one student's data + calculations (total, %, average, grade, highest/lowest subject). Pure OOP, koi SQL nahi.
-- `src/DBConfig.java` — **connection settings yahin edit karo** (URL / username / password).
-- `src/DBConnection.java` — JDBC connection helper + startup connectivity check.
-- `src/StudentDAO.java` — saara SQL/JDBC code (INSERT/SELECT/DELETE) yahin hai.
-- `src/StudentManager.java` — pehle jaisa hi API, ab andar se database use karta hai.
-- `src/StudentResultManagementSystem.java` — console (menu-driven) version.
-- `src/StudentResultGUI.java` — Swing GUI version.
+This project was created as a practical Java application to understand how a desktop GUI can work with a relational database and perform real-world CRUD operations.
 
 ---
 
-## Setup (ek baar karna hai)
+📌 About the Project
 
-### 1. MySQL install karo
-XAMPP sabse aasaan hai (Windows): https://www.apachefriends.org/ — install karke
-Control Panel se **MySQL "Start"** karo.
-(Agar standalone MySQL install kiya hai to bas MySQL service running honi chahiye.)
+Managing student results manually can become difficult when the number of students and subjects increases.
 
-### 2. Database banao
-`schema.sql` ko phpMyAdmin (XAMPP ke saath aata hai, `http://localhost/phpmyadmin`) me
-import karo — ya command line se:
-```
-mysql -u root -p < schema.sql
-```
-Isse `student_result_db` database aur `students` / `marks` tables ban jayenge,
-saath me ek sample student bhi (Roll No 101) taaki turant test kar sako.
+The **Student Result Management System** provides a simple interface where users can:
 
-### 3. `DBConfig.java` check karo
-```java
-public static final String URL = "jdbc:mysql://localhost:3306/student_result_db?useSSL=false&serverTimezone=UTC";
-public static final String USERNAME = "root";
-public static final String PASSWORD = "";   // XAMPP me default empty hoti hai
-```
-Agar tumne apna password set kiya hai to yahan daal do.
+- Add student information
+- Add subject-wise marks
+- View student results
+- Search student records
+- Delete student records
+- Refresh result data
+- View result statistics
+- Export results to CSV
 
-### 4. MySQL JDBC driver (Connector/J) download karo
-Ye ek `.jar` file hai jo Java ko MySQL se baat karna sikhati hai. Yahan se download karo:
-**https://dev.mysql.com/downloads/connector/j/** → "Platform Independent" ZIP/TAR chuno →
-usme se `mysql-connector-j-x.x.x.jar` file nikaal ke apne project folder me daal do
-(e.g. `StudentResultManagementSystem/lib/mysql-connector-j.jar`).
+The application stores all student and marks data in a **MySQL database**.
 
 ---
 
-## Compile & Run
+✨ Features
 
-Command Prompt / Terminal me `src` folder ke andar jaake:
+👨‍🎓 Student Management
+- Add a new student using Roll Number and Name
+- Search student records
+- Delete student records
+- Refresh the result table
 
-### Console version
-```
-javac -cp .;../lib/mysql-connector-j.jar *.java
-java  -cp .;../lib/mysql-connector-j.jar StudentResultManagementSystem
-```
-(Mac/Linux par `;` ki jagah `:` use karo — `-cp .:../lib/mysql-connector-j.jar`)
+📚 Marks Management
+- Add subject-wise marks
+- Store marks directly in MySQL
+- Prevent duplicate subjects for the same student
+- Maintain student-wise result records
 
-### GUI version
-```
-javac -cp .;../lib/mysql-connector-j.jar *.java
-java  -cp .;../lib/mysql-connector-j.jar StudentResultGUI
-```
+📊 Result Management
+The application calculates and displays:
 
-Startup pe app automatically MySQL se connect hone ki koshish karta hai — agar
-connection fail hui (server band hai / password galat / jar missing) to
-ek clear error message dikhega batate hue kya check karna hai.
+- Total Marks
+- Average Marks
+- Percentage
+- Grade
+- Pass / Fail Result
+- Highest Marks
+- Lowest Marks
+
+📁 Export
+- Export result data to a CSV file
+
+🖥️ Graphical Interface
+- Built using Java Swing
+- Simple and easy-to-use interface
+- Organized result table
+- Center-aligned table data for better readability
 
 ---
 
-## VS Code me chalane ke liye
-`.vscode/settings.json` me classpath add kar sakte ho, ya simpler: VS Code ke
-"Java Projects" panel me right-click karke `lib/mysql-connector-j.jar` ko
-"Add to Referenced Libraries" kar do — phir normal ▶️ Run button se chalega.
+🛠️ Technologies Used
+
+| Technology | Purpose |
+|------------|---------|
+| Java | Core programming and application logic |
+| Java Swing | Graphical User Interface |
+| JDBC | Connecting Java with MySQL |
+| MySQL | Database management |
+| MySQL Connector/J | JDBC driver |
+| VS Code | Development environment |
+| MySQL Workbench | Database creation and testing |
+| CSV | Exporting result data |
 
 ---
 
-## Menu options (console) / Buttons (GUI) — same as before
-1. Add student (roll no, name, subjects + marks 0-100)
-2. Search (by Roll No or partial Name)
-3. Display all students (ranked by percentage)
-4. Full result summary for one student
-5. Class statistics (topper, class average, pass/fail count)
-6. Delete a student record
-7. Export all results to `student_results.csv` (extra backup, DB is now the real storage)
+📂 Project Structure
 
-## Database schema
-```
-students(roll_no VARCHAR PK, name VARCHAR)
-marks(id INT PK AUTO_INCREMENT, roll_no VARCHAR FK -> students, subject VARCHAR, marks INT)
-```
-Deleting a student automatically deletes their marks too (`ON DELETE CASCADE`).
-
-## Note
-Is sandbox me maine ye poora setup ek asli MariaDB (MySQL-compatible) server pe
-test kiya — schema apply hua, sample data insert hua, aur saara Java code
-(Student, DBConfig, DBConnection, StudentDAO, StudentManager, console app, GUI)
-bina kisi error ke compile hua. Sirf `mysql-connector-j.jar` download karna baaki
-hai kyunki wo binary file hai jo is sandbox ke restricted network se download nahi
-ho payi — upar diya gaya official link use karo.
+```text
+Student-Result-Management-System/
+│
+├── DBConfig.java
+├── DBConnection.java
+├── Student.java
+├── StudentDAO.java
+├── StudentManager.java
+├── StudentResultGUI.java
+├── StudentResultManagementSystem.java
+│
+├── README.md
+├── schema.sql
+├── .gitignore
+│
+└── lib/
+    └── mysql-connector-j-26.7.0.jar
