@@ -1,0 +1,22 @@
+# Java compiled files
+*.class
+bin/
+
+# VS Code
+.vscode/
+
+# IDE files
+.idea/
+*.iml
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local configuration
+.env
